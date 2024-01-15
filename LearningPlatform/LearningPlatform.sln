@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningPlatform.API", "LearningPlatform.API\LearningPlatform.API.csproj", "{0C133BBA-630A-42DC-88FD-DFFC089DC023}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearningPlatform.API", "LearningPlatform.API\LearningPlatform.API.csproj", "{0C133BBA-630A-42DC-88FD-DFFC089DC023}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearningPlatform.Core", "LearningPlatform.Core\LearningPlatform.Core.csproj", "{7DD7F3D0-80EC-4EE0-8384-FB7C39BCCDDC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearningPlatform.DataAccess.Postgres", "LearningPlatform.DataAccess.Postgres\LearningPlatform.DataAccess.Postgres.csproj", "{260BBE02-292D-4897-B20D-869B452A4C0A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearningPlatforn.Application", "LearningPlatforn.Application\LearningPlatforn.Application.csproj", "{773193DB-3981-4577-9108-4D4147C873EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{0C133BBA-630A-42DC-88FD-DFFC089DC023}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C133BBA-630A-42DC-88FD-DFFC089DC023}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C133BBA-630A-42DC-88FD-DFFC089DC023}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DD7F3D0-80EC-4EE0-8384-FB7C39BCCDDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DD7F3D0-80EC-4EE0-8384-FB7C39BCCDDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DD7F3D0-80EC-4EE0-8384-FB7C39BCCDDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DD7F3D0-80EC-4EE0-8384-FB7C39BCCDDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{260BBE02-292D-4897-B20D-869B452A4C0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{260BBE02-292D-4897-B20D-869B452A4C0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{260BBE02-292D-4897-B20D-869B452A4C0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{260BBE02-292D-4897-B20D-869B452A4C0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{773193DB-3981-4577-9108-4D4147C873EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{773193DB-3981-4577-9108-4D4147C873EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{773193DB-3981-4577-9108-4D4147C873EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{773193DB-3981-4577-9108-4D4147C873EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

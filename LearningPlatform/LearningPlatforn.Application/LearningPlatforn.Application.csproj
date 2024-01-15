@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LearningPlatform.Core\LearningPlatform.Core.csproj" />
     <ProjectReference Include="..\LearningPlatform.DataAccess.Postgres\LearningPlatform.DataAccess.Postgres.csproj" />
   </ItemGroup>
 
