@@ -5,19 +5,21 @@ namespace LearningPlatform.API.Middlewares;
 
 public class ExceptionMiddleware : IMiddleware
 {
-    public async Task InvokeAsync(HttpContext context, RequestDelegate next)
-    {
-        try
-        {
-            await next(context);
-        }
-        catch (Exception ex)
-        {
-            var errorResponse = new ErrorResponse((int)HttpStatusCode.InternalServerError, ex.Message);
+	public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+	{
+		try
+		{
+			await next(context);
+		}
+		catch (Exception ex)
+		{
+			context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-            await context.Response.WriteAsJsonAsync(errorResponse);
+			var errorResponse = new ErrorResponse((int)HttpStatusCode.InternalServerError, ex.Message);
 
-            context.Response.ContentType = "application/json";
-        }
-    }
+			context.Response.ContentType = "application/json";
+
+			await context.Response.WriteAsJsonAsync(errorResponse);
+		}
+	}
 }
