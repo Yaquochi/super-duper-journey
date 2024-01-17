@@ -1,15 +1,26 @@
+using LearningPlatform.DataAccess.Postgres;
+using LearningPlatform.DataAccess.Postgres.Repositories;
+using LearningPlatforn.Application.Services;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContext<LearningDbContext>(options =>
+{
+	options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(LearningDbContext)));
+});
+
+builder.Services.AddScoped<CourseRepository>();
+builder.Services.AddScoped<LessonsRepository>();
+builder.Services.AddScoped<CoursesService>();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();

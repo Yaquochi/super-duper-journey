@@ -2,24 +2,18 @@
 using LearningPlatform.DataAccess.Postgres.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace LearningPlatform.DataAccess.Postgres
+namespace LearningPlatform.DataAccess.Postgres;
+
+public class LearningDbContext(DbContextOptions<LearningDbContext> options)
+	: DbContext(options)
 {
-	public class LearningDbContext : DbContext
+	public DbSet<CourseEntity> Courses { get; set; }
+
+	public DbSet<LessonEntity> Lessons { get; set; }
+
+	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
-        public LearningDbContext(DbContextOptions<LearningDbContext> options)
-            : base(options)
-        {
-            
-        }
-
-		public DbSet<CourseEntity> Courses { get; set; }
-
-		public DbSet<LessonEntity> Lessons { get; set; }
-
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
-		{
-			modelBuilder.ApplyConfiguration(new CourseConfiguration());
-			modelBuilder.ApplyConfiguration(new LessonConfiguration());
-		}
+		modelBuilder.ApplyConfiguration(new CourseConfiguration());
+		modelBuilder.ApplyConfiguration(new LessonConfiguration());
 	}
 }

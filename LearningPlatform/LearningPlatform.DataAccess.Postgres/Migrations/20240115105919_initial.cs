@@ -1,12 +1,11 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace LearningPlatform.DataAccess.Postgres.Migrations
 {
-    /// <inheritdoc />
-    public partial class initial : Migration
+	/// <inheritdoc />
+	public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
