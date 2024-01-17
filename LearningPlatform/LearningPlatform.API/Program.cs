@@ -1,3 +1,4 @@
+using LearningPlatform.API.Middlewares;
 using LearningPlatform.DataAccess.Postgres;
 using LearningPlatform.DataAccess.Postgres.Repositories;
 using LearningPlatforn.Application.Services;
@@ -5,10 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddTransient<ExceptionMiddleware>();
 
 builder.Services.AddDbContext<LearningDbContext>(options =>
 {
@@ -27,9 +29,7 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.MapControllers();
 
