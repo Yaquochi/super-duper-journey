@@ -1,6 +1,7 @@
 using LearningPlatform.API.Contracts.Lessons;
 using LearningPlatform.Core.Models;
 using LearningPlatforn.Application.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LearningPlatform.API.Endpoints;
 
@@ -14,8 +15,8 @@ public static class LessonsEndpoints
 	}
 
 	private static async Task<IResult> CreateLesson(
-		[AsParameters] Guid courseId,
-		[AsParameters] CreateLessonRequest request,
+		[FromRoute] Guid courseId,
+		[FromBody] CreateLessonRequest request,
 		LessonsService lessonsService)
 	{
 		var lesson = new Lesson(
@@ -32,7 +33,7 @@ public static class LessonsEndpoints
 	}
 
 	private static async Task<IResult> GetLessons(
-		[AsParameters] Guid courseId,
+		[FromRoute] Guid courseId,
 		LessonsService lessonsService)
 	{
 		var lessons = await lessonsService.GetLessons(courseId);

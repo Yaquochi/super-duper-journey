@@ -21,6 +21,7 @@ builder.Services.AddDbContext<LearningDbContext>(options =>
 builder.Services.AddScoped<CourseRepository>();
 builder.Services.AddScoped<LessonsRepository>();
 builder.Services.AddScoped<CoursesService>();
+builder.Services.AddScoped<LessonsService>();
 
 var app = builder.Build();
 
