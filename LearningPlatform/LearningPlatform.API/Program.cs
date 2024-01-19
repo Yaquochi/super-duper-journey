@@ -1,3 +1,4 @@
+using LearningPlatform.API.Endpoints;
 using LearningPlatform.API.Middlewares;
 using LearningPlatform.DataAccess.Postgres;
 using LearningPlatform.DataAccess.Postgres.Repositories;
@@ -32,5 +33,7 @@ if (app.Environment.IsDevelopment())
 app.UseMiddleware<ExceptionMiddleware>();
 
 app.MapControllers();
+
+app.MapLessonsEndpoints();
 
 app.Run();

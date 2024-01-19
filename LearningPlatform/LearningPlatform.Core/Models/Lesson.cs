@@ -2,9 +2,11 @@
 
 public class Lesson
 {
-	public Lesson(Guid id, string title, string description, string videoLink, string lessonText)
+	public Lesson(Guid id, Guid courseId, string title, string description, string videoLink, string lessonText)
 	{
 		Id = id;
+
+		CourseId = courseId;
 
 		Title = !string.IsNullOrEmpty(title) ? title 
 			: throw new ArgumentException("Title cannot be null!");
