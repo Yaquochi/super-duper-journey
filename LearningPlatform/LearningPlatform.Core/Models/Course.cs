@@ -14,9 +14,8 @@ public class Course
 		Description = !string.IsNullOrEmpty(description) ? description 
 			: throw new ArgumentException("Description cannot be null!");
 
-		Price = price;
-		//> 0 ? price 
-		//	: throw new ArgumentException("Price cannot be null!");
+		Price = price > 0 ? price
+			: throw new ArgumentException("Price cannot be null!");
 	}
 
 	public Guid Id { get; private set; }

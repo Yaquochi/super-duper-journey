@@ -13,6 +13,20 @@ public class CourseRepository
 		_context = context;
 	}
 
+	public async Task Create(Course course)
+	{
+		var courseEntity = new CourseEntity()
+		{
+			Id = course.Id,
+			Title = course.Title,
+			Description = course.Description,
+			Price = course.Price
+		};
+
+		await _context.Courses.AddAsync(courseEntity);
+		await _context.SaveChangesAsync();
+	}
+
 	public async Task<List<Course>> Get()
 	{
 		return await _context.Courses
@@ -31,27 +45,6 @@ public class CourseRepository
 		return course;
 	}
 
-	public async Task Create(Course course)
-	{
-		var courseEntity = new CourseEntity()
-		{
-			Id = course.Id,
-			Title = course.Title,
-			Description = course.Description,
-			Price = course.Price
-		};
-
-		await _context.Courses.AddAsync(courseEntity);
-		await _context.SaveChangesAsync();
-	}
-
-	public async Task Delete(Guid id)
-	{
-		await _context.Courses
-			.Where(c => c.Id == id)
-			.ExecuteDeleteAsync();
-	}
-
 	public async Task Update(Guid id, string title, string description, decimal price)
 	{
 		await _context.Courses
@@ -60,5 +53,12 @@ public class CourseRepository
 				.SetProperty(c => c.Title, title)
 				.SetProperty(c => c.Description, description)
 				.SetProperty(c => c.Price, price));
+	}
+
+	public async Task Delete(Guid id)
+	{
+		await _context.Courses
+			.Where(c => c.Id == id)
+			.ExecuteDeleteAsync();
 	}
 }

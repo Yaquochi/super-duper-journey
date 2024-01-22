@@ -15,5 +15,4 @@ public class LessonEntity
 	public string Description { get; set; } = string.Empty;
 
 	public string VideoLink { get; set; } = string.Empty;
-}
- 
+} 

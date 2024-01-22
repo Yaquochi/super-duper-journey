@@ -12,6 +12,11 @@ public class CoursesService
 		_courseRepository = courseRepository;
 	}
 
+	public async Task CreateCourse(Course course)
+	{
+		await _courseRepository.Create(course);
+	}
+
 	public async Task<List<Course>> GetCourses()
 	{
 		return await _courseRepository.Get();
@@ -22,18 +27,17 @@ public class CoursesService
 		return await _courseRepository.GetById(id);
 	}
 
-	public async Task CreateCourse(Course course)
+	public async Task UpdateCourse(
+		Guid id,
+		string title,
+		string description,
+		decimal price)
 	{
-		await _courseRepository.Create(course);
+		await _courseRepository.Update(id, title, description, price);
 	}
 
 	public async Task DeleteCourse(Guid id)
 	{
 		await _courseRepository.Delete(id);
-	}
-
-	public async Task UpdateCourse(Guid id, string title, string description, decimal price)
-	{
-		await _courseRepository.Update(id, title, description, price);
 	}
 }

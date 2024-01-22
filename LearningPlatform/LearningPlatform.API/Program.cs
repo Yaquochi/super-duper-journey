@@ -33,7 +33,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseMiddleware<ExceptionMiddleware>();
 
-app.MapControllers();
+//app.MapControllers();
+
+app.MapCoursesEndpoints();
 
 app.MapLessonsEndpoints();
 

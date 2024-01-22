@@ -36,4 +36,39 @@ public class LessonsRepository
 			.Select(l => new Lesson(l.Id, l.CourseId, l.Title, l.Description, l.VideoLink, l.LessonText))
 			.ToListAsync();
 	}
+
+	public async Task<Lesson> GetById(Guid id, Guid courseId)
+	{
+		var lessonEntity = await _context.Lessons
+			.AsNoTracking()
+			.FirstOrDefaultAsync(l => l.Id == id && l.CourseId == courseId) ?? throw new Exception();
+
+		var lesson = new Lesson(id, courseId, lessonEntity.Title, lessonEntity.Description, lessonEntity.VideoLink, lessonEntity.LessonText);
+
+		return lesson;
+	}
+
+	public async Task Update(
+		Guid id,
+		Guid courseId,
+		string title,
+		string description,
+		string videoLink,
+		string lessonText)
+	{
+		await _context.Lessons
+			.Where(l => l.Id == id && l.CourseId == courseId)
+			.ExecuteUpdateAsync(s => s
+			.SetProperty(l => l.Title, title)
+			.SetProperty(l =>l.Description, description)
+			.SetProperty(l => l.VideoLink, videoLink)
+			.SetProperty(l => l.LessonText, lessonText));
+	}
+
+	public async Task Delete(Guid id, Guid couresId)
+	{
+		await _context.Lessons
+			.Where(l => l.Id == id && l.CourseId == couresId)
+			.ExecuteDeleteAsync();
+	}
 }
