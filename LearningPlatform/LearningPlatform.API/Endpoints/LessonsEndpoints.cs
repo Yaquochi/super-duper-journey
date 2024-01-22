@@ -11,13 +11,13 @@ public static class LessonsEndpoints
 	{
 		app.MapPost("lessons/{courseId:guid}", CreateLesson);
 
-		app.MapGet("lessons/{courseId:guid}", GetLessons);
+		app.MapGet("lessons/course/{courseId:guid}", GetLessons);
 
-		app.MapGet("lessons/{id:guid}, {courseId:guid}", GetLessonById);
+		app.MapGet("lessons/{id:guid}", GetLessonById);
 
-		app.MapPut("lessons/{id:guid}, {courseId:guid}", UpdateLesson);
+		app.MapPut("lessons/{id:guid}", UpdateLesson);
 
-		app.MapDelete("lessons/{id:guid}, {courseId:guid}", DeleteLesson);
+		app.MapDelete("lessons/{id:guid}", DeleteLesson);
 	}
 
 	private static async Task<IResult> CreateLesson(
@@ -52,26 +52,22 @@ public static class LessonsEndpoints
 
 	private static async Task<IResult> GetLessonById(
 		[FromRoute] Guid id,
-		[FromRoute] Guid courseId,
 		LessonsService lessonsService)
 	{
-		var lesson = await lessonsService.GetLessonById(id, courseId);
+		var lesson = await lessonsService.GetLessonById(id);
 
-		var response = new GetLessonsResponse(id, courseId, lesson.Title, lesson.Description, lesson.VideoLink, lesson.LessonText);
+		var response = new GetLessonsResponse(id, lesson.CourseId, lesson.Title, lesson.Description, lesson.VideoLink, lesson.LessonText);
 
 		return Results.Ok(response);
 	}
 
 	private static async Task<IResult> UpdateLesson(
 		[FromRoute] Guid id,
-		[FromRoute] Guid courseId,
 		[FromBody] UpdateLessonRequest request,
-		LessonsService lessonsService
-		)
+		LessonsService lessonsService)
 	{
 		await lessonsService.UpdateLesson(
 			id,
-			courseId,
 			request.Title,
 			request.Description,
 			request.VideoLink,
@@ -82,10 +78,9 @@ public static class LessonsEndpoints
 
 	private static async Task<IResult> DeleteLesson(
 		[FromRoute] Guid id,
-		[FromRoute] Guid courseId,
 		LessonsService lessonsSerice)
 	{
-		await lessonsSerice.DeleteLesson(id, courseId);
+		await lessonsSerice.DeleteLesson(id);
 
 		return Results.Ok();
 	}

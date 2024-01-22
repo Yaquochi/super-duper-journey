@@ -37,27 +37,32 @@ public class LessonsRepository
 			.ToListAsync();
 	}
 
-	public async Task<Lesson> GetById(Guid id, Guid courseId)
+	public async Task<Lesson> GetById(Guid id)
 	{
 		var lessonEntity = await _context.Lessons
 			.AsNoTracking()
-			.FirstOrDefaultAsync(l => l.Id == id && l.CourseId == courseId) ?? throw new Exception();
+			.FirstOrDefaultAsync(l => l.Id == id) ?? throw new Exception();
 
-		var lesson = new Lesson(id, courseId, lessonEntity.Title, lessonEntity.Description, lessonEntity.VideoLink, lessonEntity.LessonText);
+		var lesson = new Lesson(
+			id,
+			lessonEntity.CourseId,
+			lessonEntity.Title,
+			lessonEntity.Description,
+			lessonEntity.VideoLink,
+			lessonEntity.LessonText);
 
 		return lesson;
 	}
 
 	public async Task Update(
 		Guid id,
-		Guid courseId,
 		string title,
 		string description,
 		string videoLink,
 		string lessonText)
 	{
 		await _context.Lessons
-			.Where(l => l.Id == id && l.CourseId == courseId)
+			.Where(l => l.Id == id)
 			.ExecuteUpdateAsync(s => s
 			.SetProperty(l => l.Title, title)
 			.SetProperty(l =>l.Description, description)
@@ -65,10 +70,10 @@ public class LessonsRepository
 			.SetProperty(l => l.LessonText, lessonText));
 	}
 
-	public async Task Delete(Guid id, Guid couresId)
+	public async Task Delete(Guid id)
 	{
 		await _context.Lessons
-			.Where(l => l.Id == id && l.CourseId == couresId)
+			.Where(l => l.Id == id)
 			.ExecuteDeleteAsync();
 	}
 }

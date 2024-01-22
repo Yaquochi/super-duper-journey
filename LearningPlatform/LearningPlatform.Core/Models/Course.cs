@@ -4,7 +4,9 @@ public class Course
 {
 	private readonly List<Lesson> _lessons = [];
 
-	public Course(Guid id, string title, string description, decimal price)
+    public Course() { }
+
+    public Course(Guid id, string title, string description, decimal price)
 	{
 		Id = id;
 

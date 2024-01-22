@@ -1,5 +1,6 @@
 ﻿using LearningPlatform.Core.Models;
 using LearningPlatform.DataAccess.Postgres.Entities;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 
 namespace LearningPlatform.DataAccess.Postgres.Repositories;
@@ -30,7 +31,7 @@ public class CourseRepository
 	public async Task<List<Course>> Get()
 	{
 		return await _context.Courses
-			.Select(e => new Course(e.Id, e.Title, e.Description, e.Price))
+			.ProjectToType<Course>()
 			.ToListAsync();
 	}
 

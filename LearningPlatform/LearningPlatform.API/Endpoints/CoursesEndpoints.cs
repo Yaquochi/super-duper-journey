@@ -13,11 +13,11 @@ public static class CoursesEndpoints
 
 		app.MapGet("course", GetCourses);
 		
-		app.MapGet("course, {id:guid}", GetCourseById);
+		app.MapGet("course/{id:guid}", GetCourseById);
 
-		app.MapPut("course, {id:guid}", UpdateCourse);
+		app.MapPut("course/{id:guid}", UpdateCourse);
 
-		app.MapDelete("course, {id:guid}", DeleteCourse);
+		app.MapDelete("course/{id:guid}", DeleteCourse);
 	}
 
 	private static async Task<IResult> CreateCourse(
