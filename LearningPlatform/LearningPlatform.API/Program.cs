@@ -1,7 +1,7 @@
 using LearningPlatform.API.Endpoints;
 using LearningPlatform.API.Middlewares;
-using LearningPlatform.DataAccess.Postgres;
-using LearningPlatform.DataAccess.Postgres.Repositories;
+using LearningPlatform.Persistance;
+using LearningPlatform.Persistance.Repositories;
 using LearningPlatforn.Application.Services;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,5 +1,5 @@
 ﻿using LearningPlatform.Core.Models;
-using LearningPlatform.DataAccess.Postgres.Repositories;
+using LearningPlatform.Persistance.Repositories;
 
 namespace LearningPlatforn.Application.Services;
 public class UserService

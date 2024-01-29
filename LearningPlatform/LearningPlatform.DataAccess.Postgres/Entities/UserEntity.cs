@@ -1,4 +1,4 @@
-﻿namespace LearningPlatform.DataAccess.Postgres.Entities;
+﻿namespace LearningPlatform.Persistance.Entities;
 public class UserEntity
 {
 	public Guid Id { get; set; }

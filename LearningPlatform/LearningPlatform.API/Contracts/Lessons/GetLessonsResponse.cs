@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace LearningPlatform.API.Contracts.Lessons;
+﻿namespace LearningPlatform.API.Contracts.Lessons;
 
 public record GetLessonsResponse(
 	Guid Id,

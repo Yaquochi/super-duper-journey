@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using LearningPlatform.Core.Models;
-using LearningPlatform.DataAccess.Postgres.Entities;
+using LearningPlatform.Persistance.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace LearningPlatform.DataAccess.Postgres.Repositories;
+namespace LearningPlatform.Persistance.Repositories;
 
 public class CourseRepository
 {
@@ -33,6 +33,7 @@ public class CourseRepository
 	public async Task<List<Course>> Get()
 	{
 		var courseEntities = await _context.Courses
+			.AsNoTracking()
 			.ToListAsync();
 
 		return _mapper.Map<List<Course>>(courseEntities);

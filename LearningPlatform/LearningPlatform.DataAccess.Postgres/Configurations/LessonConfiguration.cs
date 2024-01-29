@@ -1,9 +1,9 @@
-﻿using LearningPlatform.DataAccess.Postgres.Entities;
+﻿using LearningPlatform.Persistance.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 
-namespace LearningPlatform.DataAccess.Postgres.Configurations;
+namespace LearningPlatform.Persistance.Configurations;
 
 public class LessonConfiguration : IEntityTypeConfiguration<LessonEntity>
 {

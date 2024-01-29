@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
 using LearningPlatform.Core.Models;
-using LearningPlatform.DataAccess.Postgres.Entities;
+using LearningPlatform.Persistance.Entities;
 
-namespace LearningPlatform.DataAccess.Postgres;
+namespace LearningPlatform.Persistance;
 public class DataBaseMappings : Profile
 {
-    public DataBaseMappings()
-    {
-        CreateMap<CourseEntity, Course>();
-        CreateMap<UserEntity, User>();
-    }
+	public DataBaseMappings()
+	{
+		CreateMap<CourseEntity, Course>();
+		CreateMap<LessonEntity, Lesson>();
+		CreateMap<UserEntity, User>();
+	}
 }

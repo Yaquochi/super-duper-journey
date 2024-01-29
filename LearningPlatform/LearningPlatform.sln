@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearningPlatform.API", "Lea
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearningPlatform.Core", "LearningPlatform.Core\LearningPlatform.Core.csproj", "{7DD7F3D0-80EC-4EE0-8384-FB7C39BCCDDC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearningPlatform.DataAccess.Postgres", "LearningPlatform.DataAccess.Postgres\LearningPlatform.DataAccess.Postgres.csproj", "{260BBE02-292D-4897-B20D-869B452A4C0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearningPlatform.Persistance", "LearningPlatform.DataAccess.Postgres\LearningPlatform.Persistance.csproj", "{260BBE02-292D-4897-B20D-869B452A4C0A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearningPlatforn.Application", "LearningPlatforn.Application\LearningPlatforn.Application.csproj", "{773193DB-3981-4577-9108-4D4147C873EB}"
 EndProject

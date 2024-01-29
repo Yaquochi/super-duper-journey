@@ -1,16 +1,19 @@
-﻿using LearningPlatform.Core.Models;
-using LearningPlatform.DataAccess.Postgres.Entities;
+﻿using AutoMapper;
+using LearningPlatform.Core.Models;
+using LearningPlatform.Persistance.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace LearningPlatform.DataAccess.Postgres.Repositories;
+namespace LearningPlatform.Persistance.Repositories;
 
 public class LessonsRepository
 {
-	private LearningDbContext _context;
+	private readonly LearningDbContext _context;
+	private readonly IMapper _mapper;
 
-	public LessonsRepository(LearningDbContext context)
+	public LessonsRepository(LearningDbContext context, IMapper mapper)
 	{
 		_context = context;
+		_mapper = mapper;
 	}
 
 	public async Task Create(Lesson lesson)
@@ -31,10 +34,12 @@ public class LessonsRepository
 
 	public async Task<List<Lesson>> Get(Guid courseId)
 	{
-		return await _context.Lessons
+		var lessonEntity = await _context.Lessons
+			.AsNoTracking()
 			.Where(l => l.CourseId == courseId)
-			.Select(l => new Lesson(l.Id, l.CourseId, l.Title, l.Description, l.VideoLink, l.LessonText))
 			.ToListAsync();
+
+		return _mapper.Map<List<Lesson>>(lessonEntity);
 	}
 
 	public async Task<Lesson> GetById(Guid id)
@@ -43,15 +48,7 @@ public class LessonsRepository
 			.AsNoTracking()
 			.FirstOrDefaultAsync(l => l.Id == id) ?? throw new Exception();
 
-		var lesson = new Lesson(
-			id,
-			lessonEntity.CourseId,
-			lessonEntity.Title,
-			lessonEntity.Description,
-			lessonEntity.VideoLink,
-			lessonEntity.LessonText);
-
-		return lesson;
+		return _mapper.Map<Lesson>(lessonEntity);
 	}
 
 	public async Task Update(
@@ -65,7 +62,7 @@ public class LessonsRepository
 			.Where(l => l.Id == id)
 			.ExecuteUpdateAsync(s => s
 			.SetProperty(l => l.Title, title)
-			.SetProperty(l =>l.Description, description)
+			.SetProperty(l => l.Description, description)
 			.SetProperty(l => l.VideoLink, videoLink)
 			.SetProperty(l => l.LessonText, lessonText));
 	}

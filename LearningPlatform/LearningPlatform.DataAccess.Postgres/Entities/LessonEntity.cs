@@ -1,4 +1,4 @@
-﻿namespace LearningPlatform.DataAccess.Postgres.Entities;
+﻿namespace LearningPlatform.Persistance.Entities;
 
 public class LessonEntity
 {
@@ -15,4 +15,4 @@ public class LessonEntity
 	public string Description { get; set; } = string.Empty;
 
 	public string VideoLink { get; set; } = string.Empty;
-} 
+}
