@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LearningPlatform.DataAccess.Postgres\LearningPlatform.Persistance.csproj" />
+    <ProjectReference Include="..\LearningPlatform.Core\LearningPlatform.Core.csproj" />
   </ItemGroup>
 
 </Project>

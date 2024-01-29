@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LearningPlatform.Core\LearningPlatform.Core.csproj" />
+    <ProjectReference Include="..\LearningPlatform.Application\LearningPlatform.Application.csproj" />
   </ItemGroup>
 
 </Project>

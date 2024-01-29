@@ -20,7 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LearningPlatforn.Application\LearningPlatforn.Application.csproj" />
+    <ProjectReference Include="..\LearningPlatform.Application\LearningPlatform.Application.csproj" />
+    <ProjectReference Include="..\LearningPlatform.Core\LearningPlatform.Core.csproj" />
+    <ProjectReference Include="..\LearningPlatform.Persistance\LearningPlatform.Persistance.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 ﻿using LearningPlatform.API.Contracts.Courses;
+using LearningPlatform.Application.Services;
 using LearningPlatform.Core.Models;
-using LearningPlatforn.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearningPlatform.API.Endpoints;

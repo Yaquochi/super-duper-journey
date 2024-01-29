@@ -1,8 +1,9 @@
 using LearningPlatform.API.Endpoints;
 using LearningPlatform.API.Middlewares;
+using LearningPlatform.Application.Interfaces;
+using LearningPlatform.Application.Services;
 using LearningPlatform.Persistance;
 using LearningPlatform.Persistance.Repositories;
-using LearningPlatforn.Application.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,9 +19,9 @@ builder.Services.AddDbContext<LearningDbContext>(options =>
 	options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(LearningDbContext)));
 });
 
-builder.Services.AddScoped<CourseRepository>();
-builder.Services.AddScoped<LessonsRepository>();
-builder.Services.AddScoped<UsersRepository>();
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<ILessonsRepository, LessonsRepository>();
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 
 builder.Services.AddScoped<CoursesService>();
 builder.Services.AddScoped<LessonsService>();
