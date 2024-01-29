@@ -1,6 +1,6 @@
-﻿using LearningPlatform.Core.Models;
+﻿using AutoMapper;
+using LearningPlatform.Core.Models;
 using LearningPlatform.DataAccess.Postgres.Entities;
-using Mapster;
 using Microsoft.EntityFrameworkCore;
 
 namespace LearningPlatform.DataAccess.Postgres.Repositories;
@@ -8,10 +8,12 @@ namespace LearningPlatform.DataAccess.Postgres.Repositories;
 public class CourseRepository
 {
 	private readonly LearningDbContext _context;
+	private readonly IMapper _mapper;
 
-	public CourseRepository(LearningDbContext context)
+	public CourseRepository(LearningDbContext context, IMapper mapper)
 	{
 		_context = context;
+		_mapper = mapper;
 	}
 
 	public async Task Create(Course course)
@@ -30,9 +32,10 @@ public class CourseRepository
 
 	public async Task<List<Course>> Get()
 	{
-		return await _context.Courses
-			.ProjectToType<Course>()
+		var courseEntities = await _context.Courses
 			.ToListAsync();
+
+		return _mapper.Map<List<Course>>(courseEntities);
 	}
 
 	public async Task<Course> GetById(Guid id)
@@ -41,9 +44,7 @@ public class CourseRepository
 			.AsNoTracking()
 			.FirstOrDefaultAsync(c => c.Id == id) ?? throw new Exception();
 
-		var course = new Course(id, courseEntity.Title, courseEntity.Description, courseEntity.Price);
-
-		return course;
+		return _mapper.Map<Course>(courseEntity);
 	}
 
 	public async Task Update(Guid id, string title, string description, decimal price)

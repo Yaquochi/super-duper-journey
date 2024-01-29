@@ -20,8 +20,13 @@ builder.Services.AddDbContext<LearningDbContext>(options =>
 
 builder.Services.AddScoped<CourseRepository>();
 builder.Services.AddScoped<LessonsRepository>();
+builder.Services.AddScoped<UsersRepository>();
+
 builder.Services.AddScoped<CoursesService>();
 builder.Services.AddScoped<LessonsService>();
+builder.Services.AddScoped<UserService>();
+
+builder.Services.AddAutoMapper(typeof(DataBaseMappings));
 
 var app = builder.Build();
 
@@ -31,10 +36,12 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 }
 
-app.UseMiddleware<ExceptionMiddleware>();
+// app.UseMiddleware<ExceptionMiddleware>();
 
 app.MapCoursesEndpoints();
 
 app.MapLessonsEndpoints();
+
+app.MapUsersEndpoints();
 
 app.Run();

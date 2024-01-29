@@ -24,7 +24,8 @@ public static class CoursesEndpoints
 		[FromBody] CreateCourseRequest request,
 		CoursesService coursesService)
 	{
-		var course = new Course(Guid.NewGuid(),
+		var course = Course.Create(
+			Guid.NewGuid(),
 			request.Title,
 			request.Description,
 			request.Price);

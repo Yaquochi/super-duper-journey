@@ -25,7 +25,7 @@ public static class LessonsEndpoints
 		[FromBody] CreateLessonRequest request,
 		LessonsService lessonsService)
 	{
-		var lesson = new Lesson(
+		var lesson = Lesson.Create(
 			Guid.NewGuid(),
 			courseId,
 			request.Title,

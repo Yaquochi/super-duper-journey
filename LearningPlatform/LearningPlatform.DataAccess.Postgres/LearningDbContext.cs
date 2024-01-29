@@ -11,6 +11,8 @@ public class LearningDbContext(DbContextOptions<LearningDbContext> options)
 
 	public DbSet<LessonEntity> Lessons { get; set; }
 
+	public DbSet<UserEntity> Users { get; set; }
+
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		modelBuilder.ApplyConfiguration(new CourseConfiguration());
