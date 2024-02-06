@@ -1,8 +1,9 @@
 using LearningPlatform.API.Endpoints;
 using LearningPlatform.API.Middlewares;
-using LearningPlatform.DataAccess.Postgres;
-using LearningPlatform.DataAccess.Postgres.Repositories;
-using LearningPlatforn.Application.Services;
+using LearningPlatform.Application.Interfaces;
+using LearningPlatform.Application.Services;
+using LearningPlatform.Persistance;
+using LearningPlatform.Persistance.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,10 +19,15 @@ builder.Services.AddDbContext<LearningDbContext>(options =>
 	options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(LearningDbContext)));
 });
 
-builder.Services.AddScoped<CourseRepository>();
-builder.Services.AddScoped<LessonsRepository>();
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<ILessonsRepository, LessonsRepository>();
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+
 builder.Services.AddScoped<CoursesService>();
 builder.Services.AddScoped<LessonsService>();
+builder.Services.AddScoped<UserService>();
+
+builder.Services.AddAutoMapper(typeof(DataBaseMappings));
 
 var app = builder.Build();
 
@@ -31,10 +37,12 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 }
 
-app.UseMiddleware<ExceptionMiddleware>();
+// app.UseMiddleware<ExceptionMiddleware>();
 
-app.MapControllers();
+app.MapCoursesEndpoints();
 
 app.MapLessonsEndpoints();
+
+app.MapUsersEndpoints();
 
 app.Run();

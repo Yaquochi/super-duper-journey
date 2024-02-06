@@ -4,19 +4,12 @@ public class Course
 {
 	private readonly List<Lesson> _lessons = [];
 
-	public Course(Guid id, string title, string description, decimal price)
+	private Course(Guid id, string title, string description, decimal price)
 	{
 		Id = id;
-
-		Title = !string.IsNullOrEmpty(title) ? title 
-			: throw new ArgumentException("Title cannot be null!");
-
-		Description = !string.IsNullOrEmpty(description) ? description 
-			: throw new ArgumentException("Description cannot be null!");
-
+		Title = title;
+		Description = description;
 		Price = price;
-		//> 0 ? price 
-		//	: throw new ArgumentException("Price cannot be null!");
 	}
 
 	public Guid Id { get; private set; }
@@ -28,4 +21,15 @@ public class Course
 	public decimal Price { get; private set; } = 0;
 
 	public IReadOnlyList<Lesson>? Lessons => _lessons;
+
+	public static Course Create(Guid id, string title, string description, decimal price)
+	{
+		if (string.IsNullOrEmpty(title)) throw new ArgumentException("Title cannot be null!");
+
+		if (string.IsNullOrEmpty(description)) throw new ArgumentException("Description cannot be null!");
+
+		if (price < 0) throw new ArgumentException("Price cannot be null!");
+
+		return new Course(id, title, description, price);
+	}
 }
