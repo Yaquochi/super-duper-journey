@@ -7,71 +7,76 @@ namespace LearningPlatform.API.Endpoints;
 
 public static class CoursesEndpoints
 {
-	public static void MapCoursesEndpoints(this IEndpointRouteBuilder app)
-	{
-		app.MapPost("course", CreateCourse);
+    public static IEndpointRouteBuilder MapCoursesEndpoints(this IEndpointRouteBuilder app)
+    {
+        var endpoints = app.MapGroup("course").RequireAuthorization();
 
-		app.MapGet("course", GetCourses);
-		
-		app.MapGet("course/{id:guid}", GetCourseById);
+        endpoints.MapPost(string.Empty, CreateCourse);
 
-		app.MapPut("course/{id:guid}", UpdateCourse);
+        endpoints.MapGet(string.Empty, GetCourses);
 
-		app.MapDelete("course/{id:guid}", DeleteCourse);
-	}
+        endpoints.MapGet("{id:guid}", GetCourseById);
 
-	private static async Task<IResult> CreateCourse(
-		[FromBody] CreateCourseRequest request,
-		CoursesService coursesService)
-	{
-		var course = Course.Create(
-			Guid.NewGuid(),
-			request.Title,
-			request.Description,
-			request.Price);
+        endpoints.MapPut("{id:guid}", UpdateCourse);
 
-		await coursesService.CreateCourse(course);
+        endpoints.MapDelete("{id:guid}", DeleteCourse);
 
-		return Results.Ok();
-	}
+        return endpoints;
+    }
 
-	private static async Task<IResult> GetCourses(CoursesService coursesService)
-	{
-		var courses = await coursesService.GetCourses();
+    private static async Task<IResult> CreateCourse(
+        [FromBody] CreateCourseRequest request,
+        CoursesService coursesService)
+    {
+        var course = Course.Create(
+            Guid.NewGuid(),
+            request.Title,
+            request.Description,
+            request.Price);
 
-		var response = courses
-			.Select(c => new GetCourseResponse(c.Id, c.Title, c.Description, c.Price));
+        await coursesService.CreateCourse(course);
 
-		return Results.Ok(response);
-	}
+        return Results.Ok();
+    }
 
-	private static async Task<IResult> GetCourseById(
-		[FromRoute] Guid id,
-		CoursesService coursesService)
-	{
-		var course = await coursesService.GetCourseById(id);
+    private static async Task<IResult> GetCourses(
+        CoursesService coursesService, HttpContext context)
+    {
+        var courses = await coursesService.GetCourses();
 
-		var response = new GetCourseResponse(course.Id, course.Title, course.Description, course.Price);
+        var response = courses
+            .Select(c => new GetCourseResponse(c.Id, c.Title, c.Description, c.Price));
 
-		return Results.Ok(response);
-	}
+        return Results.Ok(response);
+    }
 
-	private static async Task<IResult> UpdateCourse(
-	[FromRoute] Guid id,
-	[FromBody] UpdateCourseRequest request,
-	CoursesService coursesService)
-	{
-		await coursesService.UpdateCourse(id, request.Title, request.Description, request.Price);
+    private static async Task<IResult> GetCourseById(
+        [FromRoute] Guid id,
+        CoursesService coursesService)
+    {
+        var course = await coursesService.GetCourseById(id);
 
-		return Results.Ok();
-	}
+        var response = new GetCourseResponse(course.Id, course.Title, course.Description, course.Price);
 
-	private static async Task<IResult> DeleteCourse(
-		[FromRoute] Guid id,
-		CoursesService coursesService)
-	{
-		await coursesService.DeleteCourse(id);
+        return Results.Ok(response);
+    }
 
-		return Results.Ok();
-	}
+    private static async Task<IResult> UpdateCourse(
+    [FromRoute] Guid id,
+    [FromBody] UpdateCourseRequest request,
+    CoursesService coursesService)
+    {
+        await coursesService.UpdateCourse(id, request.Title, request.Description, request.Price);
+
+        return Results.Ok();
+    }
+
+    private static async Task<IResult> DeleteCourse(
+        [FromRoute] Guid id,
+        CoursesService coursesService)
+    {
+        await coursesService.DeleteCourse(id);
+
+        return Results.Ok();
+    }
 }

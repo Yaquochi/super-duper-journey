@@ -1,4 +1,4 @@
-﻿using LearningPlatform.Application.Interfaces;
+﻿using LearningPlatform.Application.Interfaces.Repositories;
 using LearningPlatform.Core.Models;
 
 namespace LearningPlatform.Application.Services;

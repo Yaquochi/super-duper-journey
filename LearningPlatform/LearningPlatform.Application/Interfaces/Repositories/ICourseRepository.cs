@@ -1,6 +1,6 @@
 ﻿using LearningPlatform.Core.Models;
 
-namespace LearningPlatform.Application.Interfaces;
+namespace LearningPlatform.Application.Interfaces.Repositories;
 public interface ICourseRepository
 {
     Task Create(Course course);

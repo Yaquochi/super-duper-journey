@@ -1,44 +1,38 @@
 ﻿using LearningPlatform.API.Contracts.Users;
 using LearningPlatform.Application.Services;
-using LearningPlatform.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearningPlatform.API.Endpoints;
 
 public static class UsersEndpoints
 {
-	public static void MapUsersEndpoints(this IEndpointRouteBuilder app)
+	public static IEndpointRouteBuilder MapUsersEndpoints(this IEndpointRouteBuilder app)
 	{
 		app.MapPost("register", Register);
 
 		app.MapPost("login", Login);
-	}
+
+		return app;
+    }
 
 	private static async Task<IResult> Register(
 		[FromBody] RegisterUserRequest request,
-		UserService userService)
+		UserService usersService)
 	{
-		var hashedPassword = PasswordHasher.Generate(request.Password);
+		await usersService.Register(request.UserName, request.Email, request.Password);
 
-		var user = User.Create(
-			Guid.NewGuid(),
-			request.UserName,
-			hashedPassword,
-			request.Email);
-
-		await userService.CreateUser(user);
-
-		return Results.Ok(user); 
+		return Results.Ok();
 	}
 
 	private static async Task<IResult> Login(
 		[FromBody] LoginUserRequest request,
-		UserService userService)
+		UserService usersService,
+		HttpContext context)
 	{
-		var user = await userService.GetByEmail(request.Email);
+		var token = await usersService.Login(request.Email, request.Password);
 
-		var result = PasswordHasher.Verify(request.Password, user.PasswordHash);
+		context.Response.Cookies.Append("secretCookie", token);
 
-		return result ? Results.Ok() : Results.BadRequest();
+		return Results.Ok(token);
 	}
 }

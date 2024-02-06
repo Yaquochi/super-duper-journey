@@ -1,8 +1,8 @@
 ﻿using LearningPlatform.Core.Models;
 
-namespace LearningPlatform.Application.Interfaces;
+namespace LearningPlatform.Application.Interfaces.Repositories;
 public interface IUsersRepository
 {
-    Task Create(User user);
+    Task Add(User user);
     Task<User> GetByEmail(string email);
 }
