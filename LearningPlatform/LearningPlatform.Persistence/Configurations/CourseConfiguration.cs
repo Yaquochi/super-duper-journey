@@ -14,5 +14,7 @@ public partial class CourseConfiguration : IEntityTypeConfiguration<CourseEntity
         builder.HasMany(c => c.Lessons)
             .WithOne(l => l.Course)
             .HasForeignKey(l => l.CourseId);
+
+        builder.Property(c => c.Price);
     }
 }
