@@ -134,5 +134,10 @@ $RECYCLE.BIN/
 .DS_Store
 
 _NCrunch*
+/LearningPlatform/.vs/LearningPlatform/DesignTimeBuild/.dtbcache.v2
+/LearningPlatform/.vs/LearningPlatform/v17/.futdcache.v2
+/LearningPlatform/.vs/ProjectEvaluation/learningplatform.metadata.v7.bin
+/LearningPlatform/.vs/ProjectEvaluation/learningplatform.projects.v7.bin
+/LearningPlatform/.vs/LearningPlatform/v17/DocumentLayout.json
 
 LearningPlatform/.vs/LearningPlatform/v17/DocumentLayout.json

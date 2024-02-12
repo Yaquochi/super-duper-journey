@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using LearningPlatform.Application.Interfaces;
+using LearningPlatform.Application.Interfaces.Repositories;
 using LearningPlatform.Core.Models;
-using LearningPlatform.Persistance.Entities;
+using LearningPlatform.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace LearningPlatform.Persistance.Repositories;
+namespace LearningPlatform.Persistence.Repositories;
 public class UsersRepository : IUsersRepository
 {
     private readonly LearningDbContext _context;
@@ -16,7 +16,7 @@ public class UsersRepository : IUsersRepository
         _mapper = mapper;
     }
 
-    public async Task Create(User user)
+    public async Task Add(User user)
     {
         var userEntity = new UserEntity()
         {

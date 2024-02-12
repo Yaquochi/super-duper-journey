@@ -7,7 +7,7 @@ namespace LearningPlatform.API.Endpoints;
 
 public static class LessonsEndpoints
 {
-	public static void MapLessonsEndpoints(this IEndpointRouteBuilder app)
+	public static IEndpointRouteBuilder MapLessonsEndpoints(this IEndpointRouteBuilder app)
 	{
 		app.MapPost("lessons/{courseId:guid}", CreateLesson);
 
@@ -18,6 +18,8 @@ public static class LessonsEndpoints
 		app.MapPut("lessons/{id:guid}", UpdateLesson);
 
 		app.MapDelete("lessons/{id:guid}", DeleteLesson);
+
+		return app;
 	}
 
 	private static async Task<IResult> CreateLesson(

@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using LearningPlatform.Application.Interfaces;
+using LearningPlatform.Application.Interfaces.Repositories;
 using LearningPlatform.Core.Models;
-using LearningPlatform.Persistance.Entities;
+using LearningPlatform.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace LearningPlatform.Persistance.Repositories;
+namespace LearningPlatform.Persistence.Repositories;
 
 public class LessonsRepository : ILessonsRepository
 {

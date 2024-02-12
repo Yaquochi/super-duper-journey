@@ -1,48 +1,67 @@
-using LearningPlatform.API.Endpoints;
+using LearningPlatform.API.Extensions;
 using LearningPlatform.API.Middlewares;
-using LearningPlatform.Application.Interfaces;
+using LearningPlatform.Application.Interfaces.Auth;
+using LearningPlatform.Application.Interfaces.Repositories;
 using LearningPlatform.Application.Services;
-using LearningPlatform.Persistance;
-using LearningPlatform.Persistance.Repositories;
+using LearningPlatform.Persistence;
+using LearningPlatform.Persistence.Repositories;
+using LearninPlatform.Infrastructure;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
+var configuration = builder.Configuration;
 
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+services.AddApiAuthentication(configuration);
 
-builder.Services.AddTransient<ExceptionMiddleware>();
+services.AddEndpointsApiExplorer();
 
-builder.Services.AddDbContext<LearningDbContext>(options =>
+services.AddSwaggerGen();
+
+services.AddTransient<ExceptionMiddleware>();
+
+services.AddDbContext<LearningDbContext>(options =>
 {
-	options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(LearningDbContext)));
+    options.UseNpgsql(configuration.GetConnectionString(nameof(LearningDbContext)));
 });
 
-builder.Services.AddScoped<ICourseRepository, CourseRepository>();
-builder.Services.AddScoped<ILessonsRepository, LessonsRepository>();
-builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+services.AddScoped<IJwtProvider, JwtProvider>();
+services.AddScoped<IPasswordHasher, PasswordHasher>();
 
-builder.Services.AddScoped<CoursesService>();
-builder.Services.AddScoped<LessonsService>();
-builder.Services.AddScoped<UserService>();
+services.AddScoped<ICourseRepository, CourseRepository>();
+services.AddScoped<ILessonsRepository, LessonsRepository>();
+services.AddScoped<IUsersRepository, UsersRepository>();
 
-builder.Services.AddAutoMapper(typeof(DataBaseMappings));
+services.AddScoped<CoursesService>();
+services.AddScoped<LessonsService>();
+services.AddScoped<UserService>();
+
+services.AddAutoMapper(typeof(DataBaseMappings));
 
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-	app.UseSwagger();
-	app.UseSwaggerUI();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
-// app.UseMiddleware<ExceptionMiddleware>();
+app.UseMiddleware<ExceptionMiddleware>();
 
-app.MapCoursesEndpoints();
+app.UseHttpsRedirection();
 
-app.MapLessonsEndpoints();
+app.UseCookiePolicy(new CookiePolicyOptions
+{
+    MinimumSameSitePolicy = SameSiteMode.Strict,
+    HttpOnly = HttpOnlyPolicy.Always,
+    Secure = CookieSecurePolicy.Always
+});
 
-app.MapUsersEndpoints();
+app.UseAuthentication();
+
+app.UseAuthorization();
+
+app.AddMappedEndpoints();
 
 app.Run();
